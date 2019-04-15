@@ -78,6 +78,7 @@
        }
       }
     }
+    
     var Main=throttling(function (e) {
       //处理操作的主程序
       console.log('节流成功！\n获取到的输入值为：',e.target.value)
