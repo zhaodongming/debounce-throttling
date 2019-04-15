@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>debounce</title>
+</head>
+<body>
+<input type="text" id="input">
+<script>
+    window.onload=function () {
+      var inputID=document.getElementById("input");
+      //处理防抖的程序
+      function debounce(fun,delayed) {
+        // 使用闭包，让每次调用时点击定时器状态不丢失
+        var timeout=null;
+        return function () {
+          // 如果用户在定时器（上一次操作）执行前再次点击，那么上一次操作将被取消
+          clearTimeout(timeout);
+          var context=this;
+          var args=arguments;
+          timeout=setTimeout(function () {
+            // 使用事件绑定的当前对象，替换处理程序的当前对象
+            // 并将事件绑定的当前对象参数，传递给操作之后的处理程序
+            fun.apply(context,args);
+          },delayed)
+        }
+      }
+      var Main=debounce(function (e) {
+        //处理操作的主程序
+        console.log('防抖成功！\n获取到的输入值为：',e.target.value)
+      },1000)
+      inputID.addEventListener('input',Main);
+    }
+</script>
+</body>
+</html>
